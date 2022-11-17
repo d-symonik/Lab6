@@ -1,0 +1,87 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Quotes
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Lab 6</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="container">
+
+    <ion-list [inset]="true">
+      <h1>Quotes</h1>
+      <ion-item>
+        <ion-label>ID</ion-label>
+        <ion-label>Author</ion-label>
+        <ion-label>Quote</ion-label>
+      </ion-item>
+      <ion-item *ngFor="let quote of quotes">
+        <ion-label>{{quote.id}}</ion-label>
+        <ion-label>{{quote.author}}</ion-label>
+        <ion-label>{{quote.en}}</ion-label>
+        <ion-button expand="block" (click)="setOpen(true,quote)">Details</ion-button>
+
+      </ion-item>
+
+    </ion-list>
+    <ion-modal [isOpen]="isModalOpen">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>{{this.modal.componentProps.author}}</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="setClose(false)">Close</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <p>
+            {{this.modal.componentProps.en}}
+          </p>
+          <ion-button (click)="addToFavourites(this.modal.componentProps)">Add to Favourites</ion-button>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+    <ion-list *ngIf="favouriteQuotes.length!==0" [inset]="true">
+      <h1>Favourite quotes</h1>
+      <ion-item>
+        <ion-label>ID</ion-label>
+        <ion-label>Author</ion-label>
+        <ion-label>Quote</ion-label>
+      </ion-item>
+      <ion-item *ngFor="let quote of favouriteQuotes">
+        <ion-label>{{quote.id}}</ion-label>
+        <ion-label>{{quote.author}}</ion-label>
+        <ion-label>{{quote.en}}</ion-label>
+        <ion-button expand="block" (click)="setOpenFav(true,quote)">Details</ion-button>
+
+      </ion-item>
+
+    </ion-list>
+    <ion-modal [isOpen]="isModalFavouriteOpen">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>{{this.modal.componentProps.author}}</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="setCloseFav(false)">Close</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <p>
+            {{this.modal.componentProps.en}}
+          </p>
+
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+  </div>
+
+</ion-content>
